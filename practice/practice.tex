@@ -1,0 +1,56 @@
+\documentclass[draft,showtrims]{memoir}
+
+% Options for specifying paper size before/after trimming
+% \setstocksize{420mm}{297mm}
+% \settrimmedsize{210mm}{297mm}{*}
+% Or use:
+% \stockaiii
+% \pageaiv
+% Possible combination:
+\stockaiv
+\settrimmedsize{11in}{210mm}{*}
+
+% Trim the top and the fore-edge
+\setlength{\trimtop}{\stockheight}
+\addtolength{\trimtop}{-\paperheight}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+% {⟨top⟩}{⟨foredge⟩}
+\settrims{0.5\trimtop}{\trimedge}
+
+% The following command needs \setlrmargins abd \setulmargins to adjust margins
+% with respect to \textwidth
+\settypeblocksize{7.75in}{33pc}{*}
+
+\setlrmargins{1.25in}{*}{*}
+% {⟨spine⟩}{⟨edge⟩}{⟨ratio⟩}
+% \setlrmarginsandblock{1.25in}{2.1in}{*}
+
+\setulmargins{4cm}{*}{*}
+% {⟨upper⟩}{⟨lower⟩}{⟨ratio⟩}
+% \setulmarginsandblock{1.2in}{1.2in}{*}
+
+% Question: Why is setheadfoot useful?
+% setulmarginsandblock isn't enough?
+\setheadfoot{\onelineskip}{2\onelineskip}
+
+% {⟨headdrop⟩}{⟨headsep⟩}{⟨ratio⟩}
+% \setheaderspaces{*}{0.3in}{*}
+\setheaderspaces{*}{2\onelineskip}{*}
+
+% {⟨separation⟩}{⟨width⟩}{⟨push⟩}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+
+% \setpagecc{\paperheight}{\paperwidth}{*}
+\checkandfixthelayout
+
+\usepackage{lipsum}
+
+\begin{document}
+\chapter{One}
+\lipsum[1-2]
+\marginpar{\raggedright\small\lipsum[9][1]}\footnote{\lipsum[10][1]}
+\lipsum[3-8]
+\marginpar{\raggedright\small\lipsum[9][1]}\footnote{\lipsum[10][1]}
+\end{document}
+
