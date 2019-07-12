@@ -48,9 +48,52 @@
 
 \begin{document}
 \chapter{One}
+
+\chapter{Two}
 \lipsum[1-2]
 \marginpar{\raggedright\small\lipsum[9][1]}\footnote{\lipsum[10][1]}
 \lipsum[3-8]
 \marginpar{\raggedright\small\lipsum[9][1]}\footnote{\lipsum[10][1]}
+
+\chapter{Three}
+
+\textup{Upright shape}, \textit{italic shape}, \textsl{slanted shape}, and
+\textsc{small caps shape} are different types of `shapes'.
+\textmd{Medium series} and \textbf{bold series} are different types of
+`series', or `weight'.
+\textrm{Roman family}, \textsf{sans serif family}, and \texttt{typewriter}
+family are different types of `families'.
+
+The \verb|emph| command is used to produce some text that should be
+\emph{emphasized for some reason and can be \emph{infrequently interspersed}
+with some further emphasis} jus like in this sentence.
+What about an \emph{emphasis inside \emph{an emphasis inside \emph{an
+emphasis}}}?
+
+\texttt{SingleSpace} environment:\par
+\begin{SingleSpace}
+  \lipsum[1-2]
+\end{SingleSpace}
+\lipsum[3]
+
+\texttt{SingleSpace*} environment:\par
+\begin{SingleSpace*}
+  \lipsum[1-2]
+\end{SingleSpace*}
+\lipsum[3]
+
+\texttt{DoubleSpace} environment:\par
+\begin{DoubleSpace}
+  \lipsum[1-2]
+\end{DoubleSpace}
+\lipsum[3]
+
+\texttt{DoubleSpace*} environment:\par
+\begin{DoubleSpace*}
+  \lipsum[1-2]
+\end{DoubleSpace*}
+\lipsum[3]
+
+% What is topskip?
 \end{document}
 
