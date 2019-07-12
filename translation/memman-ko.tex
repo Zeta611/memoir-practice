@@ -1,0 +1,482 @@
+\documentclass[10pt,a4paper]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\setmainfont{Noto Serif}
+\setsansfont{Noto Sans}
+\setmonofont{Noto Sans Mono}
+\setkomainfont(Noto Serif CJK KR)(* Bold)(Noto Sans CJK KR)
+\setkosansfont[Noto Sans CJK KR]()( Bold)( Medium)
+
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+
+\NewDocumentCommand \senv { m }
+  {
+    \cmd{\begin\{#1\}}
+  }
+\NewDocumentCommand \eenv { m }
+  {
+    \cmd{\end\{#1\}}
+  }
+
+
+\newcommand{\published}[1]{%
+  \gdef\puB{#1}}
+\renewcommand{\maketitlehooka}{%
+  \par\begin{flushright}\puB\end{flushright}}
+
+\begin{document}
+
+\begin{titlingpage}
+%%% TITLE
+\pretitle{\begin{flushright}\HUGE\sffamily}
+\title{The Memoir Class 번역}
+\posttitle{\par\end{flushright}\vskip 1cm}
+
+%%% AUTHOR
+\preauthor{\begin{flushright}
+           \large \lineskip 0.5em%
+           \begin{tabular}[t]{c}}
+\author{이재호 옮김}
+\postauthor{\end{tabular}\par\end{flushright}\vskip 0.5cm}
+
+%%% DATE
+\predate{\begin{flushright}}
+\date{마지막 수정일: \today}
+\postdate{\par\end{flushright}}
+
+% thanks에서 \\는 안되고 \par만 되는 이유?
+\published{expl3 스터디 그룹%
+           \thanks{\TeX을 배울 수 있는 자리 마련해주셔서 감사합니다.\par텍스트}\\
+           2차 모임 (2019년 7월 13일)}
+
+\thanksmarkseries{fnsymbol}
+\thanksheadextra{(}{)}
+% This is same as
+% \thanksmarkstyle{(#1)}
+\setlength{\thanksmarkwidth}{1em}
+\setlength{\thanksmarksep}{-0.9em}
+
+\setlength{\droptitle}{4.5cm}
+
+\usethanksrule
+
+\maketitle
+\end{titlingpage}
+
+\published{}
+% \pretitle{\begin{center}\huge\sffamily}
+% \posttitle{\par\end{center}\vskip 1cm}
+\emptythanks
+
+\maketitle
+
+\renewcommand{\abstractname}{Abstract}
+\renewcommand{\abstractnamefont}{\small\scshape}
+\renewcommand{\abstracttextfont}{\small\sffamily}
+
+% \abstractrunin
+% \abslabeldelim{.}
+% \setlength{\abstitleskip}{-4.5em}
+
+% \renewcommand{\absnamepos}{flushleft}
+
+\setlength{\absparindent}{0pt}
+% \begin{onecolabstract}
+\begin{abstract}
+  \lipsum[1]
+\end{abstract}
+% \end{onecolabstract}
+
+\chapter{타이틀}
+
+표준 클래스들은 표지를 설정하는데 큰 도움이 되지 못하는데, \cmd{\maketitle}
+명령은 테크니컬 논문집에서 논문의 제목을 생성하는 것이 주목적이기 때문이다.
+이는 학위 논문, 보고서나 서적의 표지를 만들기에 불충분하다.
+필자는 이를 위해 \cmd{\maketitle}을 무시하고, 직접 \LaTeX\ 표준 명령어를
+사용해 표지 레이아웃을\footnote{만약 여러분이 학위 논문을 작성 중이라면, 그것이
+어떻게 생겨야 하는지 아마도 정해져 있을 것이다.}
+디자인할 것을 권장한다.
+
+Ruari McLean을 인용하자면, 그는 표지에 대해서 다음과 같이 말한다:
+\begin{quotation}
+  표지는 책의 실제 제목과 (있을 경우 부제목을 포함해) 저자의 이름, 출판사,
+  그리고 간혹 삽화의 개수를 포함하지만, 나아가 그것보다 많은 일을 해야 한다.
+  디자이너의 관점에서 표지는 책에서 가장 중요한 부분으로, 책의 스타일을 정한다.
+  표지는 독자와의 소통을 시작한다\ldots
+
+  만약 책에서 삽화가 큰 비중을 차지한다면, 표지는 이를 시각적으로 보일 수
+  있거나 그래야 한다.
+  책에서, 예컨대 장의 시작에서라던지, 어떠한 형태로든 장식이 사용된다면 독자는
+  이것이 표지에서도 반복될 것을 기대할 것이다.
+
+  책의 형식이 어떻든지간에, 표지는 그것의 맛보기를 보여줘야 한다.
+  만약 책이 줄글로 구성되어 있다면, 표지는 적어도 그것과 조화를 이룰 수 있어야
+  한다.
+  표지 자체는 글 영역의 너비보다 넓어서는 안되며, 일반적으로는 더 좁을
+  것이다\ldots
+\end{quotation}
+
+McLean의 표지를 모방한 것이 \fref{figure:titleTH}에 나와 있다.
+
+\begin{figure}
+\centering
+% \begin{showtitle}
+% \titleTH
+% \end{showtitle}
+\caption{Layout of a title page for a book on typography}\label{figure:titleTH}
+\end{figure}
+
+\cmd{\maketitle} 명령의 조판 형식은 \LaTeX 표준 클래스에서 사실상 고정된
+것으로 보아야 한다.
+이 클래스는 제목 정보, 즉 \cmd{\title}, \cmd{\author}, \cmd{\date}의 내용이
+표시되는 형태를 수정할 수 있는 일련의 형식화 명령들을 제공한다.
+또, 이는 위 명령들의 값을 나중에 문서에서 다시 사용할 수 있도록 유지한다.
+나아가 이 클래스는 \cmd{\maketitle} 명령이 사용된 후에 사용된 명령 값이
+자동으로 지워지는 것을 방지한다.
+그러므로 하나의 문서 안에서 같거나 다른 표지가, 예를 들면 반표지와 전표지에,
+여러 번 나오게 할 수도 있다.
+\cmd{\thanks} 명령은 기능이 확장되어 감사의 말 주석의 표지 부호와 레이아웃을
+다양하게 설정할 수 있게 되었다.
+
+일반적으로, \cmd{\maketitle} 레이아웃에서 약간의 변화를 넘어선다면
+\cmd{\maketitle}을 무시하고 레이아웃 전체를 여러분이 손수 만들어 여러분이
+종의의 원하는 곳에 모든 것을 위치시키는 편이 낫다.
+
+\begin{figure}
+\centering
+% \begin{showtitle}
+% \titleDS
+% \end{showtitle}
+\caption{Example of a mandated title page style for a doctoral thesis}\label{figure:titleDS}
+\end{figure}
+
+\begin{figure}%\setlength{\unitlength}{1pt}
+\centering
+%\begin{showtitle}
+% {\titleRB}
+%\end{showtitle}
+\caption{Example of a Victorian title page}\label{figure:titleRB}
+\end{figure}
+
+\begin{figure}
+\centering
+% \begin{showtitle}
+% \titleDB
+% \end{showtitle}
+\caption{Layout of a title page for a book on book design}\label{figure:titleDB}
+\end{figure}
+
+\begin{figure}
+\centering
+% \begin{showtitle}
+% \titleGM
+% \end{showtitle}
+\caption{Layout of a title page for a book about books}\label{figure:titleGM}
+\end{figure}
+
+\section{표지 양식화하기}
+
+표지를 조판하기 위해 제공되는 도구들은 국한되어 있는데, 이들은 본질적으로
+테크니컬 논문집에 출판되는 논문의 제목 형식을 제공해주는 것이 전부이다.
+이들은 보고서의 제목을 조판할 때에도 빠르고 지저분한 방법을 제공해줄 수 있지만,
+책이나 학위 논문과 같은 중요한 작업의 표지에 대해서는 수작업이 필요하다.
+예컨대 나의 학생인 Donal Sanderson은 그의 박사 학위 논문을 조판하기 위해
+\LaTeX\ 을 사용했고, \fref{figure:titleDS}에 Rensselear Polytechnic
+Institute에서 1994년에 지정된 표지 양식이 나와 있다.
+이외의 다양한 표지의 예시와, 이들을 만드는데 사용된 코드가 \cite{TITLEPAGES}에
+있다.
+
+\cite{TITLEPAGES}에 나오는 또 다른 수작업된 표지가 \fref{figure:titleRB}에 나와
+있다.
+이것은 필자가 19세기 말 즈음에 출판된 옛 소책자를 기반으로 한 것이며, 다양한
+활자를 표시할 수 있는 빅토리아 시대의 프린터에 대한 애정을 확인할 수 있다.
+여기서 괘선이 표지의 핵심적인 부분이라고 할 수 있다.
+본 매뉴얼을 위해 필자는 \LaTeX\ 표준 배포판에 포함된 New Century Schoolbook
+글꼴을 사용했는데, 본래는 SoftMaker/ATF 라이브러리에서 라이선스를 받은, 그리고 
+Christoper League의 공로로 \LaTeX\ 을 지원하는 FontSite 글꼴 중 하나인 Century
+Old Style을 선택했었다.
+
+\fref{figure:titleDB}의 표지는 \textit{The Design of
+Books}~\cite{ADRIANWILSON93}의 양식을 따르며, 페이지는 Nicholas Basbanes의
+\textit{A Gentle Madness: Bibliophiles, Bibliomanes, and the Eternal Passion
+for Books}와 유사한 것이 \fref{figure:titleGM}에 나와 있다.
+이들 모두는 \cite{TITLEPAGES}에서 가져온 것이며 수작업된 것들이다.
+
+반면에 다음 코드는 \cmd{\maketitle}의 표준 레이아웃을 생성한다.
+% \begin{egsource}{eg:maketitle}
+% \title{MEANDERINGS}
+% \author{T. H. E. River \and
+%         A. Wanderer\thanks{Supported by a grant from the
+%         R. Ambler's Fund}\\
+%         Dun Roamin Institute, NY}
+% \date{1 April 1993\thanks{First drafted on 29 February 1992}}
+% ...
+% \maketitle
+% \end{egsource}
+
+본 클래스의 이 부분은 \textsf{titling} 패키지를 재구현한 것이다.
+
+이 클래스는 설정 가능한 \cmd{\maketitle} 명령을 제공한다.
+\cmd{\maketitle} 명령은 이 클래스에서 본질적으로
+\begin{verbatim}
+\newcommand{\maketitle}{%
+   \vspace*{\droptitle}
+   \maketitlehooka
+   {\pretitle \title \posttitle}
+   \maketitlehookb
+   {\preauthor \author \postauthor}
+   \maketitlehookc
+   {\predate \date \postdate}
+   \maketitlehookd
+   \thispagestyle{title}
+}
+\end{verbatim}
+와 같이 정의되는데, 이때 \textsl{title} 페이지 스타일은 처음에는 \textsf{plain}
+페이지 스타일과 동일하다.
+\cmd{\maketitle} 내에서 사용되는 각종 매크로는 아래에 설명되어 있다.
+
+\begin{tcolorbox}
+\cmd{\pretitle}\marg{text} \cmd{\posttitle}\marg{text}\\
+\cmd{\preauthor}\marg{text} \cmd{\postauthor}\marg{text}\\
+\cmd{\predate}\marg{text} \cmd{\postdate}\marg{text}
+\end{tcolorbox}
+위 여섯 개의 명령들은 각자 하나의 인자 \marg{text}를 가지며, 이는 문서에서
+\cmd{\maketitle} 명령의 표준 요소의 조판을 통제한다.
+\cmd{\title}은 본질적으로 \cmd{\pretitle}과 \cmd{\posttitle} 사이에서
+처리되는데, 다음과 같이
+\begin{verbatim}
+{\pretitle \title \posttitle}
+\end{verbatim}
+되며 \cmd{\author}과 \cmd{\date} 명령에 대해서도 유사하다.
+이 명령들은 \textsf{report} 클래스의 일반적인 \cmd{\maketitle}의 조판 결과를
+모방하도록 초기화되어 있다.
+즉, 명령들의 기본 정의는 다음과 같다.
+\begin{verbatim}
+\pretitle{\begin{center}\LARGE}
+\posttitle{\par\end{center}\vskip 0.5em}
+\preauthor{\begin{center}
+           \large \lineskip 0.5em%
+           \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\large}
+\postdate{\par\end{center}}
+\end{verbatim}
+
+이들은 다른 효과를 내기 위해 바꿀 수 있다.
+예를 들어 우측 정렬된 sans-serif 제목과 좌측 정렬된 small caps 날짜를 얻으려면
+다음과 같이 하라.
+\begin{verbatim}
+\pretitle{\begin{flushright}\LARGE\sffamily}
+\posttitle{\par\end{flushright}\vskip 0.5em}
+\predate{\begin{flushleft}\large\scshape}
+\postdate{\par\end{flushleft}}
+\end{verbatim}
+
+\begin{tcolorbox}
+\cmd{\droptitle}
+\end{tcolorbox}
+\cmd{\maketitle} 명령은 제목을 페이지의 특정 높이에 놓는다.
+여러분은 제목의 세로 위치를 \cmd{\droptitle} 길이를 통해 변경할 수 있다.
+여기에 양수를 대입하면 제목을 낮출 것이며, 음수를 대입하면 높일 것이다.
+기본 정의는 다음과 같다.
+\begin{verbatim}
+\setlength{\droptitle}{0pt}
+\end{verbatim}
+
+\begin{tcolorbox}
+\cmd{\maketitlehooka} \cmd{\maketitlehookb}\\
+\cmd{\maketitlehookc} \cmd{\maketitlehookd}
+\end{tcolorbox}
+이 네 후크 명령은 \cmd{\maketitle}에 추가적인 요소를 넣을 수 있도록 제공된다.
+이들은 기본적으로 아무것도 하지 않도록 정의되어 있지만, 재정의할 수 있다.
+예를 들어, 일부 출판물에서는 논문이 출판된 곳에 대한 문장을 실제 제목 문구
+직전에 삽입하는 것을 요구한다.
+다음은 \cmd{\published} 명령을 정의하여 출판 정보를 담을 수 있도록 하며,
+\cmd{\maketitle}에 의해 자동적으로 출력된다.
+\begin{verbatim}
+\newcommand{\published}[1]{%
+   \gdef\puB{#1}}
+\newcommand{\puB}{}
+\renewcommand{\maketitlehooka}{%
+   \par\noindent \puB}
+\end{verbatim}
+이후
+\begin{verbatim}
+\published{Originally published in 
+          \textit{The Journal of ...}\thanks{Reprinted with permission}}
+...
+\maketitle
+\end{verbatim}
+와 같이 하여 출판 정보와 일반적인 제목 정보를 모두 출력할 수 있다.
+새로운 \cmd{\published} 명령과 함께 \cmd{\thanks} 명령어를 사용하기 위해서
+추가적인 조치가 필요 없다는 것에 주의하라.
+
+\begin{tcolorbox}
+\senv{titlingpage} text \eenv{titlingpage} \\
+\senv{titlingpage*} text \eenv{titlingpage*}\\
+\cmd{\titlingpageend}\marg{twoside code}\marg{oneside code} 
+\end{tcolorbox}
+표준 클래스들과 \textsf{titlepage} 옵션이 함께 사용되면, \cmd{\maketitle}은
+제목 요소를 숫자가 붙지 않은 페이지에 넣고 새로운 페이지를 페이지 번호 1로
+시작한다.
+표준 클래스는 \cmd{titlepage} 환경도 제공하여, 번호가 붙지 않은 새로운 장을
+시작하고 이후 다시 페이지 번호 1부터 새로운 페이지를 시작한다.
+이 표지에 어떤 내용을 넣고 어디에 놓을지는 전적으로 여러분의 책임에 달려 있다.
+만약 \cmd{\maketitle}이 \cmd{titlepage} 환경 안에서 사용된다면 이는 또 다른
+페이지를 시작할 것이다.
+
+이 클래스는 \textsf{titlingpage} 옵션이나 \cmd{titlepage} 환경 둘 중 어느 것도
+제공하지 않는다.
+대신 이는 \textsf{titlepage} 옵션과 \cmd{titlepage} 명령 중간쯤 되는
+\cmd{titlingpage} 환경을 제공한다.
+여러분은 \cmd{titlingpage} 환경에서 \cmd{\maketitle}을 포함한 명령들을 사용할
+수 있다.
+\textsf{titlingpage} 페이지 스타일이 사용되며, 끝에는 번호 1이 붙은 일반적인
+페이지를 시작한다 (\senv{titlingpage*}는 페이지 번호를 재설정하지 않는다).
+\textsl{titlingpage} 페이지 스타일은 \textsl{empty} 페이지 스타일과 같게 초기
+설정되어 있다.
+
+\cmd{titlingpage}의 끝에는 지우기 코드가 실행되는데, 이를 통해 다음 페이지 혹은
+다음 우츨 페이지로 이동할 수 있다.
+\cmd{\titlingpageend{\marg{twoside code}}{\marg{oneside code}}}를 사용해서
+지우기 코드를 지정할 수 있다.
+기본값은 각각 \cmd{\cleardoublepage}와 \cmd{\clearpage}이다.\footnote{따라서 이
+수정은 기존의 문서를 바꾸지 않을 것이다, LM, 2018/03/06.}
+그러나 그냥 \cmd{\clearforchapter}을 따르도록 하는 것이 더 나은 선택이 될 수
+있다.
+\begin{verbatim}
+\titlingpageend{\clearforchapter}{\clearforchapter}
+\end{verbatim}
+이 값을 사용하면, \cmd{titlingpage}는 \textsf{openany}와 함께 예상대로 작동할
+것이다.
+
+예를 들어, \textsl{plain} 페이지 스타일로 제목과 요약을 같은 표지에 두고 싶다면
+다음과 같이 한다.
+\begin{verbatim}
+\begin{document}
+\begin{titlingpage}
+\aliaspagestyle{titlingpage}{plain}
+\setlength{\droptitle}{30pt} lower the title
+\maketitle
+\begin{abstract}...\end{abstract}
+\end{titlingpage}
+\end{verbatim}
+
+그러나 \senv{titlingpage}를 사용해서 표지를 만드는 것이 필수는 아니므로,
+여러분은 특수한 환경 없이 일반적인 \LaTeX\ 조판을 사용할 수 있다.
+그 방법은 다음과 같을 것이다.
+\begin{verbatim}
+\pagestyle{empty}
+%%% Title, author, publisher, etc.,  here
+\cleardoublepage
+...
+\end{verbatim}
+
+기본적으로, 제목 정보는 편집 영역 너비를 기준으로 가운데 정렬된다.
+간혹 누군가 \texttt{comp.text.tex} 뉴스 그룹에 표지의 제목 정보를 실물 페이지
+기준으로 가운데 정렬하는 방법을 묻고는 한다.
+만약 편집 영역이 실제 페이지 기준으로 가운데에 있다면 기본 가운데 정렬로 충분할
+것이다.
+만약 편집 영역이 실제로 가운데가 아니라면, 제목 정보를 가로 방향으로
+이동시키던가, \cmd{\maketitle}에게 편집 영역이 가로 방향으로 이동되었다고
+믿게할 수 있다.
+가장 간단한 해결책은 \cmd{\calccentering} 명령과 \cmd{adjustwidth*} 환경을
+사용하는 것이다.
+예를 들면 다음과 같다.
+\begin{verbatim}
+\begin{titlingpage}
+  \calccentering{\unitlength}
+  \begin{adjustwidth*}{\unitlength}{-\unitlength}
+    \maketitle
+  \end{adjustwidth*}
+\end{titlingpage}
+\end{verbatim}
+
+\begin{tcolorbox}
+\cmd{\title}\marg{text} \cmd{\thetitle}\\
+\cmd{\author}\marg{text} \cmd{\theauthor}\\
+\cmd{\date}\marg{text} \cmd{\thedate}
+\end{tcolorbox}
+
+일반적인 문서 클래스에서 \cmd{\maketitle}을 위해 사용되는 \cmd{\title},
+\cmd{\author}과 \cmd{date} 매크로의 내용들(\meta{text})은 \cmd{\maketitle} 사용
+이후 접근할 수 없다.
+본 클래스는 \cmd{\thetitle}, \cmd{\theauthor}과 \cmd{\thedate} 명령을 제공하여
+원한다면 이후 문서에서 제목 요소를 출력하는데 사용할 수 있도록 한다.
+
+\begin{tcolorbox}
+\cmd{\and} \cmd{\andnext}
+\end{tcolorbox}
+매크로 \cmd{\and}는 \cmd{\author} 명령어의 인자 안에 쓰이며, 저자들의 이름
+사이에 추가 공백을 넣어준다.
+이 클래스의 \cmd{\andnext} 매크로는 공백 대신에 새로운 줄을 넣어준다.
+\cmd{\theauthor} 매크로 안에서 \cmd{\and}와 \cmd{\andnext}는 둘 다 쉼표로
+치환된다.
+
+본 클래스는 표준 클래스처럼 \cmd{\maketitle} 사용 이후에 표지 명령을 자동으로
+끄는 관행을 따르지 않는다.
+여러분은 원한다면 문서에 여러 개의 \cmd{\title}, \cmd{\author}, \cmd{date},
+그리고 \cmd{\maketitle} 명령들을 넣을 수 있다.
+예를 들어, 일부 보고서는 표지로 시작해서 뒤이어 요약문이 따르고, 다르게 표현될
+수도 있는 또다른 제목을 본문 앞에 가진다.
+이는 다음과 같이 구현할 수 있다.
+\begin{verbatim}
+\title{Cover title}
+...
+\begin{titlingpage}
+\maketitle
+\end{titlingpage}
+...
+\title{Body title}
+\maketitle
+...
+\end{verbatim}
+
+\begin{tcolorbox}
+\cmd{\killtitle} \cmd{\keepthetitle}\\
+\cmd{\emptythanks}
+\end{tcolorbox}
+\cmd{\killtitle} 매크로 사용 후에 \cmd{\thetitle} 등을 포함한 모든 표지 관련
+명령을 사용하지 못하도록  한다 (이 명령을 사용해 \cmd{\thetitle} 등과 같은
+명령이 필요하지 않을 경우 매크로 공간을 확보할 수 있다).
+이 명령은 본 클래스에서 표준 클래스의 자동 종료 수행의 수동 버전이다.
+\cmd{\keepthetitle} 명령은 비슷한 기능을 하지만, 다른 모든 기능은 끄면서
+\cmd{\thetitle}, \cmd{\theauthor}과 \cmd{\thedate} 명령을 유지한다는 차이가
+있다.
+
+\cmd{\emptythanks} 명령은 기존 \cmd{\thanks}의 모든 문구를 지운다.
+이 명령은 \cmd{\maketitle}이 여러번 사용될 경우 유용하다.
+\cmd{\thanks} 명령은 매 사용마다 문구를 쌓아올리므로, \cmd{\maketitle}을 매번
+사용할 때 기존의 모든 \cmd{\thanks} 문구가 새 문구와 함께 출력될 것이다.
+이를 방지하기 위해서는 \cmd{\maketitle}을 사용하기 전에 매번
+\cmd{\emptythanks}를 넣으면 된다.
+
+
+\section{감사의 말 양식화하기}
+
+본 클래스는 설정 가능한 \cmd{\thanks} 명령을 제공한다.
+\begin{tcolorbox}
+\cmd{\thanksmarkseries}\marg{format}\\
+\cmd{\symbolthanksmark}
+\end{tcolorbox}
+모든 \cmd{\thanks}는 표지나 각주에 기호로 표시된다.
+명령 \cmd{\thanksmarkseries}는 이러한 표지 양식을 바꾸는데 사용될 수 있다.
+\meta{format} 인자는 카운터를 출력하는 형식들 중 하나의 이름이다.
+이름은 카운터 형식과 같지만 백슬래시를 포함하지 않는다.
+\cmd{\thanks}가 기호 대신에 소문자로 표시되기 위해서는 다음과 같이 하라.
+\begin{verbatim}
+\thanksmarkseries{alph}
+\end{verbatim}
+편의를 위해서 \cmd{\symbolthanksmark}는 목록을 각주 기호로 지정한다.
+이 클래스를 사용하면 \meta{format}에는 \texttt{arabic}, \texttt{roman},
+\texttt{Roman}, \texttt{alph}, \texttt{Alph} 그리고 \texttt{fnsymbol}이
+이름으로 올 수 있다.
+
+\begin{tcolorbox}
+\cmd{\continuousmarks}
+\end{tcolorbox}
+
+\end{document}
