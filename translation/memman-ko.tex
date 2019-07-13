@@ -59,7 +59,7 @@
 \setlength{\thanksmarkwidth}{1em}
 \setlength{\thanksmarksep}{-0.9em}
 
-\setlength{\droptitle}{4.5cm}
+\setlength{\droptitle}{10.5cm}
 
 \usethanksrule
 
@@ -478,5 +478,25 @@ for Books}와 유사한 것이 \fref{figure:titleGM}에 나와 있다.
 \begin{tcolorbox}
 \cmd{\continuousmarks}
 \end{tcolorbox}
+\cmd{\thanks} 명령은 \cmd{footnote} 카운터를 사용하며, 보통 카운터는 표제 이후
+영으로 설정되어 각자 마크는 다시 1부터 시작하게 된다.
+만약 카운터가 영으로 초기화되면 안 된다면, \cmd{\continuousmarks}를 지시하라.
+이는 감사의 말 표지로 숫자를 사용한다면 필요할 수 있다.
+
+\begin{tcolorbox}
+\cmd{\thanksheadextra}\marg{pre}\marg{post}
+\end{tcolorbox}
+\cmd{\thanksheadextra} 명령은 \meta{pre}와 \meta{post}를 각각 감사의 말 표제
+이전과 이후에 표제 영역에 넣을 것이다.
+기본적으로 \meta{pre}와 \meta{post}는 비어 있다.
+예를 들어, 표제 표지를 괄호로 감싸라면 다음과 같이 하라.
+\begin{verbatim}
+\thanksheadextra{(}{)}
+\end{verbatim}
+
+\begin{tcolorbox}
+\cmd{\thanksmark}\marg{n}
+\end{tcolorbox}
+간혹 동일한 감사의 말을, 예컨대 여섯 저자 중 네 명에게, 적용시켜야 할 경우, 
 
 \end{document}
